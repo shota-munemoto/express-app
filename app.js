@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
+const expressSession = require('express-session')
 
+const sessionStore = require('./session-store')
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -23,6 +25,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(expressSession({
+  // TODO: read from env
+  secret: 'secret session key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  },
+  store: sessionStore
+}))
 
 app.use('/', index);
 app.use('/users', users);
