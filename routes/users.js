@@ -6,7 +6,7 @@ var router = express.Router();
 const saltRounds = 10
 
 router.get('/new', (req, res) => {
-  res.render('users/new')
+  res.render('users/new', { csrfToken: req.csrfToken() })
 })
 
 router.post('/', async (req, res, next) => {

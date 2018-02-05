@@ -4,7 +4,7 @@ const localPassport = require('../local-passport')
 const router = express.Router()
 
 router.get('/new', (req, res) => {
-  res.render('session/new')
+  res.render('session/new', { csrfToken: req.csrfToken() })
 })
 
 router.post('/destroy', (req, res) => {
