@@ -1,9 +1,29 @@
 var express = require('express');
-var router = express.Router();
+const bcrypt = require('bcrypt')
+const models = require('../models')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+var router = express.Router();
+const saltRounds = 10
+
+router.get('/new', (req, res) => {
+  res.render('users/new')
+})
+
+router.post('/', async (req, res, next) => {
+  const name = req.body.name
+  const password = req.body.password
+  try {
+    const passwordDigest = await bcrypt.hash(password, saltRounds)
+    const user = await models.User.create({ name, passwordDigest })
+    req.login(user, error => {
+      if (error) {
+        return next(error)
+      }
+      return res.redirect('/')
+    })
+  } catch (error) {
+    return next(error)
+  }
+})
 
 module.exports = router;

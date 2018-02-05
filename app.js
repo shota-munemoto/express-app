@@ -8,8 +8,10 @@ var stylus = require('stylus');
 const expressSession = require('express-session')
 
 const sessionStore = require('./session-store')
+const localPassport = require('./local-passport')
 var index = require('./routes/index');
 var users = require('./routes/users');
+const session = require('./routes/session')
 
 var app = express();
 
@@ -37,9 +39,12 @@ app.use(expressSession({
   },
   store: sessionStore
 }))
+app.use(localPassport.initialize())
+app.use(localPassport.session())
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/session', session)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
