@@ -10,6 +10,7 @@ const csrf = require('csurf')
 
 const sessionStore = require('./session-store')
 const localPassport = require('./local-passport')
+const flash = require('./flash')
 var index = require('./routes/index');
 var users = require('./routes/users');
 const session = require('./routes/session')
@@ -41,6 +42,7 @@ app.use(expressSession({
   store: sessionStore
 }))
 app.use(csrf({ cookie: true }))
+app.use(flash())
 app.use(localPassport.initialize())
 app.use(localPassport.session())
 

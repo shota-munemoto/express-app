@@ -5,3 +5,9 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
+    if flash
+      each key in Object.keys(flash)
+        dl
+          dt= key
+          each message in flash[key]
+            dd= message
