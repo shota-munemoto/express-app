@@ -9,25 +9,20 @@ passport.use(
       usernameField: 'name',
       passwordField: 'password'
     },
-    (name, password, done) => {
-      let user
-      models.User.findOne({ where: { name } })
-        .then(foundUser => {
-          if (!foundUser) {
-            return done(null, false)
-          }
-          user = foundUser
-          return bcrypt.compare(password, user.passwordDigest)
-        })
-        .then(valid => {
-          if (!valid) {
-            return done(null, false)
-          }
-          return done(null, user)
-        })
-        .catch(error => {
-          return done(error)
-        })
+    async (name, password, done) => {
+      try {
+        const user = await models.User.findOne({ where: { name } })
+        if (!user) {
+          return done(null, false, { message: 'Invalid name or password' })
+        }
+        const valid = await bcrypt.compare(password, user.passwordDigest)
+        if (!valid) {
+          return done(null, false, { message: 'Invalid name or password' })
+        }
+        return done(null, user)
+      } catch (error) {
+        return done(error)
+      }
     }
   )
 )
