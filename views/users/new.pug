@@ -5,7 +5,7 @@ block content
   form(action='/users' method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
     label(for='form-name') Name
-    input(type='text' name='name' value='')
+    input(type='text' name='name' value=name)
     label(for='form-password') Password
     input(type='password' name='password' value='')
     input(type='submit' name='submit' value='Sign up')

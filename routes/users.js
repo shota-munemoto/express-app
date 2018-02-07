@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
   const password = req.body.password
   const user = await models.User.create({ name, password }).catch(error => {
     req.flash('error', error.errors.map(error => error.message))
-    res.render('users/new', { csrfToken: req.csrfToken() })
+    res.render('users/new', { csrfToken: req.csrfToken(), name })
     return null
   })
   if (!user) return
