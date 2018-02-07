@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
 const expressSession = require('express-session')
-const csrf = require('csurf')
+const csurf = require('csurf')
 
 const sessionStore = require('./session-store')
 const localPassport = require('./local-passport')
@@ -41,7 +41,7 @@ app.use(expressSession({
   },
   store: sessionStore
 }))
-app.use(csrf({ cookie: true }))
+app.use(csurf({ cookie: true }))
 app.use(flash())
 app.use(localPassport.initialize())
 app.use(localPassport.session())
