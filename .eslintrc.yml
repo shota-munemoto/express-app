@@ -1,21 +1,23 @@
-env:
-  browser: true
-  commonjs: true
-  es6: true
-  node: true
-extends: 'eslint:recommended'
+plugins:
+  - prettier
 parserOptions:
   ecmaVersion: 2017
+extends:
+  - prettier
 rules:
-  indent:
-    - error
+  # prettier
+  prettier/prettier:
     - 2
-  linebreak-style:
-    - error
-    - unix
-  quotes:
-    - error
-    - single
-  semi:
-    - error
-    - never
+    -
+      trailingComma: none
+      singleQuote: true
+      semi: false
+  # rules
+  prefer-const: 2
+  no-unused-vars:
+    - 2
+    - argsIgnorePattern: ^_
+  no-multiple-empty-lines:
+    - 2
+    - max: 1
+  no-var: 2
