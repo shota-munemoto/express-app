@@ -5,7 +5,7 @@ const router = express.Router()
 
 /* GET home page. */
 router.get('/', isAuthenticated, (req, res, _) => {
-  res.render('index', { title: 'Express' })
+  res.render('index', { csrfToken: req.csrfToken(), title: 'Express' })
 })
 
 module.exports = router
