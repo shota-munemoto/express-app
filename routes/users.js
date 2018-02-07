@@ -1,8 +1,8 @@
-var express = require('express');
+const express = require('express')
 const bcrypt = require('bcrypt')
 const models = require('../models')
 
-var router = express.Router();
+const router = express.Router()
 const saltRounds = 10
 
 router.get('/new', (req, res) => {
@@ -26,4 +26,4 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-module.exports = router;
+module.exports = router

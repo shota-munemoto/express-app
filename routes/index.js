@@ -1,11 +1,11 @@
-var express = require('express');
+const express = require('express')
 const isAuthenticated = require('./is-authenticated')
 
-var router = express.Router();
+const router = express.Router()
 
 /* GET home page. */
-router.get('/', isAuthenticated, (req, res, next) => {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', isAuthenticated, (req, res, _) => {
+  res.render('index', { title: 'Express' })
+})
 
-module.exports = router;
+module.exports = router
