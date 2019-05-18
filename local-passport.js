@@ -32,7 +32,7 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((id, done) => {
-  models.User.findById(id)
+  models.User.findOne({ where: { id } })
     .then(user => {
       done(null, user)
     })
